@@ -26,7 +26,7 @@
   * [1. Client](examples/ClientServer/Client)
   * [2. Server](examples/ClientServer/Server)
   * [3. SyncClient](examples/SyncClient)
-* [Libraries and projects that use AsyncTCP](#Libraries-and-projects-that-use-AsyncTCP)
+* [Libraries and projects that use ESPAsyncTCP](#Libraries-and-projects-that-use-ESPAsyncTCP)
 * [Contributions and Thanks](#contributions-and-thanks)
 * [Contributing](#contributing)
 * [License](#license)
@@ -51,7 +51,7 @@ Hopefully the `bearssl` feature of new ESP8266 cores will be added to this libra
 
 This library is based on, modified from:
 
-1. [Hristo Gochkov's AsyncTCP](https://github.com/me-no-dev/ESPAsyncTCP)
+1. [Hristo Gochkov's ESPAsyncTCP](https://github.com/me-no-dev/ESPAsyncTCP)
 
 to apply the better and faster **asynchronous** feature of the **powerful** [ESPAsyncTCP Library](https://github.com/me-no-dev/ESPAsyncTCP) with SSL, and will be the base for other more advanced Async libraries for ESP8266, such as ESPAsyncWebServer, AsyncHTTPRequest, AsyncHTTPSRequest, etc.
 
@@ -125,7 +125,7 @@ It is exactly what it sounds like. This is a standard, blocking TCP Client, simi
 ---
 ---
 
-## Libraries and projects that use AsyncTCP
+## Libraries and projects that use ESPAsyncTCP
 
 - [ESP Async Web Server](https://github.com/me-no-dev/ESPAsyncWebServer)
 - [Async MQTT client](https://github.com/marvinroger/async-mqtt-client)
