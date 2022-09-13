@@ -31,8 +31,10 @@ class AsyncPrinter;
 typedef std::function<void(void*, AsyncPrinter*, uint8_t*, size_t)> ApDataHandler;
 typedef std::function<void(void*, AsyncPrinter*)> ApCloseHandler;
 
-class AsyncPrinter: public Print {
+class AsyncPrinter: public Print 
+{
   private:
+  
     AsyncClient *_client;
     ApDataHandler _data_cb;
     void *_data_arg;
@@ -42,7 +44,9 @@ class AsyncPrinter: public Print {
     size_t _tx_buffer_size;
 
     void _onConnect(AsyncClient *c);
+    
   public:
+  
     AsyncPrinter *next;
 
     AsyncPrinter();

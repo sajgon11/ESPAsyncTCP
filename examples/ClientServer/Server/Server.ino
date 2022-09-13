@@ -1,5 +1,8 @@
 #include <ESP8266WiFi.h>
-#include <ESPAsyncTCP.h>
+
+// Must use forked library
+#include <ESPAsyncTCP.h>      // https://github.com/khoih-prog/ESPAsyncTCP
+
 #include <DNSServer.h>
 #include <vector>
 
@@ -10,16 +13,19 @@ static DNSServer DNS;
 static std::vector<AsyncClient*> clients; // a list to hold all clients
 
  /* clients events */
-static void handleError(void* arg, AsyncClient* client, int8_t error) {
+static void handleError(void* arg, AsyncClient* client, int8_t error) 
+{
 	Serial.printf("\n connection error %s from client %s \n", client->errorToString(error), client->remoteIP().toString().c_str());
 }
 
-static void handleData(void* arg, AsyncClient* client, void *data, size_t len) {
+static void handleData(void* arg, AsyncClient* client, void *data, size_t len) 
+{
 	Serial.printf("\n data received from client %s \n", client->remoteIP().toString().c_str());
 	Serial.write((uint8_t*)data, len);
 
 	// reply to client
-	if (client->space() > 32 && client->canSend()) {
+	if (client->space() > 32 && client->canSend()) 
+	{
 		char reply[32];
 		sprintf(reply, "this is from %s", SERVER_HOST_NAME);
 		client->add(reply, strlen(reply));
@@ -27,7 +33,8 @@ static void handleData(void* arg, AsyncClient* client, void *data, size_t len) {
 	}
 }
 
-static void handleDisconnect(void* arg, AsyncClient* client) {
+static void handleDisconnect(void* arg, AsyncClient* client) 
+{
 	Serial.printf("\n client %s disconnected \n", client->remoteIP().toString().c_str());
 }
 
@@ -37,7 +44,8 @@ static void handleTimeOut(void* arg, AsyncClient* client, uint32_t time) {
 
 
 /* server events */
-static void handleNewClient(void* arg, AsyncClient* client) {
+static void handleNewClient(void* arg, AsyncClient* client) 
+{
 	Serial.printf("\n new client has been connected to server, ip: %s", client->remoteIP().toString().c_str());
 
 	// add to list
@@ -50,12 +58,16 @@ static void handleNewClient(void* arg, AsyncClient* client) {
 	client->onTimeout(&handleTimeOut, NULL);
 }
 
-void setup() {
+void setup() 
+{
 	Serial.begin(115200);
-	delay(20);
+  while (!Serial && millis() < 5000);
+ 
+	delay(200);
 	
 	// create access point
-	while (!WiFi.softAP(SSID, PASSWORD, 6, false, 15)) {
+	while (!WiFi.softAP(SSID, PASSWORD, 6, false, 15)) 
+	{
 		delay(500);
 	}
 
@@ -68,6 +80,7 @@ void setup() {
 	server->begin();
 }
 
-void loop() {
+void loop() 
+{
 	DNS.processNextRequest();
 }
