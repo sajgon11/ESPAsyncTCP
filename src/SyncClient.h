@@ -23,17 +23,21 @@
 #define SYNCCLIENT_H_
 
 #include "Client.h"
+
 // Needed for Arduino core releases prior to 2.5.0, because of changes
 // made to accommodate Arduino core 2.5.0
 // CONST was 1st defined in Core 2.5.0 in IPAddress.h
 #ifndef CONST
-#define CONST
+  #define CONST
 #endif
+
 #include <async_config.h>
+
 class cbuf;
 class AsyncClient;
 
-class SyncClient: public Client {
+class SyncClient: public Client 
+{
   private:
     AsyncClient *_client;
     cbuf *_tx_buffer;
@@ -57,37 +61,62 @@ class SyncClient: public Client {
 
     int ref();
     int unref();
-    operator bool(){ return connected(); }
+    
+    operator bool() 
+    {
+      return connected();
+    }
+    
     SyncClient & operator=(const SyncClient &other);
 
 #if ASYNC_TCP_SSL_ENABLED
+
     int _connect(const IPAddress& ip, uint16_t port, bool secure);
-    int connect(CONST IPAddress& ip, uint16_t port, bool secure){
+    
+    int connect(CONST IPAddress& ip, uint16_t port, bool secure) 
+    {
       return _connect(ip, port, secure);
     }
-    int connect(IPAddress ip, uint16_t port, bool secure){
+    
+    int connect(IPAddress ip, uint16_t port, bool secure) 
+    {
       return _connect(reinterpret_cast<const IPAddress&>(ip), port, secure);
     }
+    
     int connect(const char *host, uint16_t port, bool secure);
-    int connect(CONST IPAddress& ip, uint16_t port){
+    
+    int connect(CONST IPAddress& ip, uint16_t port) 
+    {
       return _connect(ip, port, false);
     }
-    int connect(IPAddress ip, uint16_t port){
+    
+    int connect(IPAddress ip, uint16_t port) 
+    {
       return _connect(reinterpret_cast<const IPAddress&>(ip), port, false);
     }
-    int connect(const char *host, uint16_t port){
+    
+    int connect(const char *host, uint16_t port) 
+    {
       return connect(host, port, false);
     }
+    
 #else
+
     int _connect(const IPAddress& ip, uint16_t port);
-    int connect(CONST IPAddress& ip, uint16_t port){
+    
+    int connect(CONST IPAddress& ip, uint16_t port) 
+    {
       return _connect(ip, port);
     }
-    int connect(IPAddress ip, uint16_t port){
+    
+    int connect(IPAddress ip, uint16_t port) 
+    {
       return _connect(reinterpret_cast<const IPAddress&>(ip), port);
     }
+    
     int connect(const char *host, uint16_t port);
 #endif
+
     void setTimeout(uint32_t seconds);
 
     uint8_t status();
@@ -95,8 +124,17 @@ class SyncClient: public Client {
 
     bool stop(unsigned int maxWaitMs);
     bool flush(unsigned int maxWaitMs);
-    void stop() { (void)stop(0);}
-    void flush() { (void)flush(0);}
+    
+    void stop() 
+    {
+      (void)stop(0);
+    }
+    
+    void flush() 
+    {
+      (void)flush(0);
+    }
+    
     size_t write(uint8_t data);
     size_t write(const uint8_t *data, size_t len);
 

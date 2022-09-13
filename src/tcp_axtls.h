@@ -19,9 +19,9 @@
   Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 /*
- * Compatibility for AxTLS with LWIP raw tcp mode (http://lwip.wikia.com/wiki/Raw/TCP)
- * Original Code and Inspiration: Slavey Karadzhov
- */
+   Compatibility for AxTLS with LWIP raw tcp mode (http://lwip.wikia.com/wiki/Raw/TCP)
+   Original Code and Inspiration: Slavey Karadzhov
+*/
 
 #ifndef LWIPR_COMPAT_H
 #define LWIPR_COMPAT_H
@@ -32,8 +32,8 @@
 
 #include "lwipopts.h"
 /*
- * All those functions will run only if LWIP tcp raw mode is used
- */
+   All those functions will run only if LWIP tcp raw mode is used
+*/
 #if LWIP_RAW==1
 
 #ifdef __cplusplus
