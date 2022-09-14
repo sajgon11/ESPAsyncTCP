@@ -16,6 +16,7 @@
   * [Features](#features)
   * [Why Async is better](#why-async-is-better)
   * [Currently supported Boards](#currently-supported-boards)
+* [Changelog](changelog.md) 
 * [Async TCP Library for ESP8266 Arduino](#Async-TCP-Library-for-ESP8266-Arduino)
 * [Documentation](#Documentation)
 	* [AsyncClient and AsyncServer](#AsyncClient-and-AsyncServer)
