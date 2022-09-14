@@ -21,6 +21,6 @@
 
 ### Release v1.3.0
 
-1. Initial modifications for ESP8266 boards, using WiFi or LwIP Ethernet, with [ESP8266 core v3.0.2+](https://github.com/esp8266/Arduino/releases/tag/3.0.2) or WiFi with [ESP8266 core v2.7.4-](https://github.com/esp8266/Arduino/releases/tag/2.7.4) to avoid compile errors
+1. Initial modifications for ESP8266 boards, using WiFi or LwIP Ethernet, with [ESP8266 core v3.0.2+](https://github.com/esp8266/Arduino/releases/tag/3.0.2) or WiFi with [ESP8266 core v2.7.4](https://github.com/esp8266/Arduino/releases/tag/2.7.4) to avoid compile errors
 
 
