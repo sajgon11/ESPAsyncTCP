@@ -48,7 +48,8 @@ void setup()
   
   if(client.printf("GET / HTTP/1.1\r\nHost: www.google.com\r\nConnection: close\r\n\r\n") > 0)
   {
-    while(client.connected() && client.available() == 0){
+    while(client.connected() && client.available() == 0)
+    {
       delay(1);
     }
 

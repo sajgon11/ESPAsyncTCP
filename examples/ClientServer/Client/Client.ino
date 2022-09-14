@@ -31,6 +31,8 @@ static void replyToServer(void* arg)
 /* event callbacks */
 static void handleData(void* arg, AsyncClient* client, void *data, size_t len) 
 {
+  (void) arg;
+  
   Serial.printf("\n data received from %s \n", client->remoteIP().toString().c_str());
   Serial.write((uint8_t*)data, len);
 
@@ -39,6 +41,8 @@ static void handleData(void* arg, AsyncClient* client, void *data, size_t len)
 
 void onConnect(void* arg, AsyncClient* client) 
 {
+  (void) arg;
+  
   Serial.printf("\n client has been connected to %s on port %d \n", SERVER_HOST_NAME, TCP_PORT);
   replyToServer(client);
 }

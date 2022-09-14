@@ -15,11 +15,15 @@ static std::vector<AsyncClient*> clients; // a list to hold all clients
  /* clients events */
 static void handleError(void* arg, AsyncClient* client, int8_t error) 
 {
+  (void) arg;
+  
 	Serial.printf("\n connection error %s from client %s \n", client->errorToString(error), client->remoteIP().toString().c_str());
 }
 
 static void handleData(void* arg, AsyncClient* client, void *data, size_t len) 
 {
+  (void) arg;
+  
 	Serial.printf("\n data received from client %s \n", client->remoteIP().toString().c_str());
 	Serial.write((uint8_t*)data, len);
 
@@ -35,10 +39,16 @@ static void handleData(void* arg, AsyncClient* client, void *data, size_t len)
 
 static void handleDisconnect(void* arg, AsyncClient* client) 
 {
+  (void) arg;
+  
 	Serial.printf("\n client %s disconnected \n", client->remoteIP().toString().c_str());
 }
 
-static void handleTimeOut(void* arg, AsyncClient* client, uint32_t time) {
+static void handleTimeOut(void* arg, AsyncClient* client, uint32_t time) 
+{
+  (void) arg;
+  (void) time;
+  
 	Serial.printf("\n client ACK timeout ip: %s \n", client->remoteIP().toString().c_str());
 }
 
@@ -46,6 +56,8 @@ static void handleTimeOut(void* arg, AsyncClient* client, uint32_t time) {
 /* server events */
 static void handleNewClient(void* arg, AsyncClient* client) 
 {
+  (void) arg;
+  
 	Serial.printf("\n new client has been connected to server, ip: %s", client->remoteIP().toString().c_str());
 
 	// add to list
