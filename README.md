@@ -1,6 +1,5 @@
 # ESPAsyncTCP Library (forked copy)
 
-[![arduino-library-badge](https://www.ardu-badge.com/badge/ESPAsyncTCP.svg?)](https://www.ardu-badge.com/ESPAsyncTCP)
 [![GitHub release](https://img.shields.io/github/release/khoih-prog/ESPAsyncTCP.svg)](https://github.com/khoih-prog/ESPAsyncTCP/releases)
 [![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](#Contributing)
 [![GitHub issues](https://img.shields.io/github/issues/khoih-prog/ESPAsyncTCP.svg)](http://github.com/khoih-prog/ESPAsyncTCP/issues)
