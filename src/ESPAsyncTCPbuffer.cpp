@@ -313,6 +313,7 @@ void AsyncTCPbuffer::stop()
         _RXmode = ATB_RX_MODE_NONE;
         _cbDone(false, NULL);
         break;
+
       default:
         break;
     }
@@ -537,19 +538,19 @@ void AsyncTCPbuffer::_rxData(uint8_t *buf, size_t len)
     _RXbuffer->write((const char *) (buf), len);
   }
 
-  if (!_RXbuffer->empty() && _RXmode != ATB_RX_MODE_NONE) 
+  if (!_RXbuffer->empty() && _RXmode != ATB_RX_MODE_NONE)
   {
     // handle as much as possible data in buffer
     handled = _handleRxBuffer(NULL, 0);
-    
-    while (_RXmode != ATB_RX_MODE_NONE && handled != 0) 
+
+    while (_RXmode != ATB_RX_MODE_NONE && handled != 0)
     {
       handled = _handleRxBuffer(NULL, 0);
     }
   }
 
   // clean up ram
-  if (_RXbuffer->empty() && _RXbuffer->room() != 100) 
+  if (_RXbuffer->empty() && _RXbuffer->room() != 100)
   {
     _RXbuffer->resize(100);
   }
@@ -559,9 +560,9 @@ void AsyncTCPbuffer::_rxData(uint8_t *buf, size_t len)
 /**
 
 */
-size_t AsyncTCPbuffer::_handleRxBuffer(uint8_t *buf, size_t len) 
+size_t AsyncTCPbuffer::_handleRxBuffer(uint8_t *buf, size_t len)
 {
-  if (!_client || !_client->connected() || _RXbuffer == NULL) 
+  if (!_client || !_client->connected() || _RXbuffer == NULL)
   {
     return 0;
   }
@@ -571,72 +572,73 @@ size_t AsyncTCPbuffer::_handleRxBuffer(uint8_t *buf, size_t len)
   size_t BufferAvailable = _RXbuffer->available();
   size_t r = 0;
 
-  if (_RXmode == ATB_RX_MODE_NONE) 
+  if (_RXmode == ATB_RX_MODE_NONE)
   {
     return 0;
-  } 
-  else if (_RXmode == ATB_RX_MODE_FREE) 
+  }
+  else if (_RXmode == ATB_RX_MODE_FREE)
   {
-    if (_cbRX == NULL) 
+    if (_cbRX == NULL)
     {
       return 0;
     }
 
-    if (BufferAvailable > 0) 
+    if (BufferAvailable > 0)
     {
       uint8_t * b = new (std::nothrow) uint8_t[BufferAvailable];
-      
-      if (b == NULL) 
+
+      if (b == NULL)
       {
         panic(); //TODO: What action should this be ?
       }
-      
+
       _RXbuffer->peek((char *) b, BufferAvailable);
       r = _cbRX(b, BufferAvailable);
       _RXbuffer->remove(r);
     }
 
-    if (r == BufferAvailable && buf && (len > 0)) 
+    if (r == BufferAvailable && buf && (len > 0))
     {
       return _cbRX(buf, len);
-    } 
-    else 
+    }
+    else
     {
       return 0;
     }
 
-  } 
-  else if (_RXmode == ATB_RX_MODE_READ_BYTES) 
+  }
+  else if (_RXmode == ATB_RX_MODE_READ_BYTES)
   {
-    if (_rxReadBytesPtr == NULL || _cbDone == NULL) 
+    if (_rxReadBytesPtr == NULL || _cbDone == NULL)
     {
       return 0;
     }
 
     size_t newReadCount = 0;
 
-    if (BufferAvailable) 
+    if (BufferAvailable)
     {
       r = _RXbuffer->read((char *) _rxReadBytesPtr, _rxSize);
       _rxSize -= r;
       _rxReadBytesPtr += r;
     }
 
-    if (_RXbuffer->empty() && (len > 0) && buf) 
+    if (_RXbuffer->empty() && (len > 0) && buf)
     {
       r = len;
-      if (r > _rxSize) 
+
+      if (r > _rxSize)
       {
         r = _rxSize;
       }
-      
+
       memcpy(_rxReadBytesPtr, buf, r);
       _rxReadBytesPtr += r;
       _rxSize -= r;
       newReadCount += r;
     }
 
-    if (_rxSize == 0) 
+    if (_rxSize == 0)
     {
       _RXmode = ATB_RX_MODE_NONE;
       _cbDone(true, NULL);
@@ -645,63 +647,63 @@ size_t AsyncTCPbuffer::_handleRxBuffer(uint8_t *buf, size_t len)
     // add left over bytes to Buffer
     return newReadCount;
 
-  } 
-  else if (_RXmode == ATB_RX_MODE_TERMINATOR) 
+  }
+  else if (_RXmode == ATB_RX_MODE_TERMINATOR)
   {
     // TODO implement read terminator non string
 
-  } 
-  else if (_RXmode == ATB_RX_MODE_TERMINATOR_STRING) 
+  }
+  else if (_RXmode == ATB_RX_MODE_TERMINATOR_STRING)
   {
-    if (_rxReadStringPtr == NULL || _cbDone == NULL) 
+    if (_rxReadStringPtr == NULL || _cbDone == NULL)
     {
       return 0;
     }
 
     // handle Buffer
-    if (BufferAvailable > 0) 
+    if (BufferAvailable > 0)
     {
-      while (!_RXbuffer->empty()) 
+      while (!_RXbuffer->empty())
       {
         char c = _RXbuffer->read();
-        
-        if (c == _rxTerminator || c == 0x00) 
+
+        if (c == _rxTerminator || c == 0x00)
         {
           _RXmode = ATB_RX_MODE_NONE;
           _cbDone(true, _rxReadStringPtr);
-          
+
           return 0;
-        } 
-        else 
+        }
+        else
         {
           (*_rxReadStringPtr) += c;
         }
       }
     }
 
-    if (_RXbuffer->empty() && (len > 0) && buf) 
+    if (_RXbuffer->empty() && (len > 0) && buf)
     {
       size_t newReadCount = 0;
-      
-      while (newReadCount < len) 
+
+      while (newReadCount < len)
       {
         char c = (char) * buf;
         buf++;
         newReadCount++;
-        
-        if (c == _rxTerminator || c == 0x00) 
+
+        if (c == _rxTerminator || c == 0x00)
         {
           _RXmode = ATB_RX_MODE_NONE;
           _cbDone(true, _rxReadStringPtr);
-          
+
           return newReadCount;
-        } 
-        else 
+        }
+        else
         {
           (*_rxReadStringPtr) += c;
         }
       }
-      
+
       return newReadCount;
     }
   }

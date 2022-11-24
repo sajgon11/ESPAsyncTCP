@@ -1,10 +1,13 @@
-# ESPAsyncTCP (forked copy)
+# ESPAsyncTCP Library (forked copy)
 
 [![arduino-library-badge](https://www.ardu-badge.com/badge/ESPAsyncTCP.svg?)](https://www.ardu-badge.com/ESPAsyncTCP)
 [![GitHub release](https://img.shields.io/github/release/khoih-prog/ESPAsyncTCP.svg)](https://github.com/khoih-prog/ESPAsyncTCP/releases)
 [![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](#Contributing)
 [![GitHub issues](https://img.shields.io/github/issues/khoih-prog/ESPAsyncTCP.svg)](http://github.com/khoih-prog/ESPAsyncTCP/issues)
 
+
+<a href="https://profile-counter.glitch.me/khoih-prog/count.svg" title="Total khoih-prog Visitor count"><img src="https://profile-counter.glitch.me/khoih-prog/count.svg" style="height: 30px;width: 200px;"></a>
+<a href="https://profile-counter.glitch.me/khoih-prog-ESPAsyncTCP/count.svg" title="Forked ESPAsyncTCP Visitor count"><img src="https://profile-counter.glitch.me/khoih-prog-ESPAsyncTCP/count.svg" style="height: 30px;width: 200px;"></a>
 
 ---
 ---
@@ -102,16 +105,17 @@ The base classes on which everything else is built. They expose all possible sce
 
 ### AsyncPrinter
 
-This class can be used to send data like any other ```Print``` interface (```Serial``` for example).
-The object then can be used outside of the Async callbacks (the loop) and receive asynchronously data using ```onData```. The object can be checked if the underlying ```AsyncClient```is connected, or hook to the ```onDisconnect``` callback.
+This class can be used to send data like any other `Print` interface (`Serial` for example).
+
+The object then can be used outside of the Async callbacks (the loop) and receive asynchronously data using ```onData```. The object can be checked if the underlying `AsyncClient` is connected, or hook to the `onDisconnect` callback.
 
 ### AsyncTCPbuffer
 
-This class is really similar to the ```AsyncPrinter```, but it differs in the fact that it can buffer some of the incoming data.
+This class is really similar to the `AsyncPrinter`, but it differs in the fact that it can buffer some of the incoming data.
 
 ### SyncClient
 
-It is exactly what it sounds like. This is a standard, blocking TCP Client, similar to the one included in ```ESP8266WiFi```
+It is exactly what it sounds like. This is a standard, blocking TCP Client, similar to the one included in `ESP8266WiFi`
 
 ---
 ---
@@ -167,7 +171,8 @@ Submit issues to: [ESPAsyncTCP issues](https://github.com/khoih-prog/ESPAsyncTCP
 
 1. Try to convert to use with new ESP8266 cores v3.0.2+ without `axtls` support
 2. Add Table of Contents
-3. Modify examples
+3. Modify examples\
+4. Add astyle using `allman` style. Restyle the library
 
 ---
 ---
@@ -209,8 +214,8 @@ If you want to contribute to this project:
 
 ## Copyright
 
-- Copyright 2016- Hristo Gochkov
-- Copyright 2022- Khoi Hoang
+- Copyright (c) 2016- Hristo Gochkov
+- Copyright (c) 2022- Khoi Hoang
 
 
 

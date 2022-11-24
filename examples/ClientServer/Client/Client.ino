@@ -13,15 +13,15 @@ extern "C"
 
 static os_timer_t intervalTimer;
 
-static void replyToServer(void* arg) 
+static void replyToServer(void* arg)
 {
   AsyncClient* client = reinterpret_cast<AsyncClient*>(arg);
 
   // send reply
-  if (client->space() > 32 && client->canSend()) 
+  if (client->space() > 32 && client->canSend())
   {
     char message[32];
-    
+
     sprintf(message, "this is from %s", WiFi.localIP().toString().c_str());
     client->add(message, strlen(message));
     client->send();
@@ -29,37 +29,34 @@ static void replyToServer(void* arg)
 }
 
 /* event callbacks */
-static void handleData(void* arg, AsyncClient* client, void *data, size_t len) 
+static void handleData(void* arg, AsyncClient* client, void *data, size_t len)
 {
-  (void) arg;
-  
   Serial.printf("\n data received from %s \n", client->remoteIP().toString().c_str());
   Serial.write((uint8_t*)data, len);
 
   os_timer_arm(&intervalTimer, 2000, true); // schedule for reply to server at next 2s
 }
 
-void onConnect(void* arg, AsyncClient* client) 
+void onConnect(void* arg, AsyncClient* client)
 {
-  (void) arg;
-  
   Serial.printf("\n client has been connected to %s on port %d \n", SERVER_HOST_NAME, TCP_PORT);
   replyToServer(client);
 }
 
 
-void setup() 
+void setup()
 {
   Serial.begin(115200);
+
   while (!Serial && millis() < 5000);
-  
+
   delay(200);
 
   // connects to access point
   WiFi.mode(WIFI_STA);
   WiFi.begin(SSID, PASSWORD);
-  
-  while (WiFi.status() != WL_CONNECTED) 
+
+  while (WiFi.status() != WL_CONNECTED)
   {
     Serial.print('.');
     delay(500);
@@ -74,6 +71,6 @@ void setup()
   os_timer_setfn(&intervalTimer, &replyToServer, client);
 }
 
-void loop() 
+void loop()
 {
 }

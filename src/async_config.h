@@ -25,19 +25,19 @@
 
 #ifndef DEBUG_SKIP__DEBUG_PRINT_MACROS
 
-#include <DebugPrintMacros.h>
+  #include <DebugPrintMacros.h>
 
-#ifndef ASYNC_TCP_ASSERT
-  #define ASYNC_TCP_ASSERT(...) do { (void)0;} while(false)
-#endif
+  #ifndef ASYNC_TCP_ASSERT
+    #define ASYNC_TCP_ASSERT(...) do { (void)0;} while(false)
+  #endif
 
-#ifndef ASYNC_TCP_DEBUG
-  #define ASYNC_TCP_DEBUG(...) do { (void)0;} while(false)
-#endif
+  #ifndef ASYNC_TCP_DEBUG
+    #define ASYNC_TCP_DEBUG(...) do { (void)0;} while(false)
+  #endif
 
-#ifndef TCP_SSL_DEBUG
-  #define TCP_SSL_DEBUG(...) do { (void)0;} while(false)
-#endif
+  #ifndef TCP_SSL_DEBUG
+    #define TCP_SSL_DEBUG(...) do { (void)0;} while(false)
+  #endif
 
 #endif
 

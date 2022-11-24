@@ -14,21 +14,21 @@
 // #define DEBUG_ESP_PORT Serial
 
 #if defined(DEBUG_ESP_PORT) && !defined(DEBUG_TIME_STAMP_FMT)
-  #define DEBUG_TIME_STAMP_FMT "%06u.%03u "
-  struct _DEBUG_TIME_STAMP 
-  {
-    unsigned dec;
-    unsigned whole;
-  };
-  
-  inline struct _DEBUG_TIME_STAMP debugTimeStamp(void) 
-  {
-    struct _DEBUG_TIME_STAMP st;
-    unsigned now = millis() % 1000000000;
-    st.dec = now % 1000;
-    st.whole = now / 1000;
-    return st;
-  }
+#define DEBUG_TIME_STAMP_FMT "%06u.%03u "
+struct _DEBUG_TIME_STAMP
+{
+  unsigned dec;
+  unsigned whole;
+};
+
+inline struct _DEBUG_TIME_STAMP debugTimeStamp(void)
+{
+  struct _DEBUG_TIME_STAMP st;
+  unsigned now = millis() % 1000000000;
+  st.dec = now % 1000;
+  st.whole = now / 1000;
+  return st;
+}
 #endif
 
 #if defined(DEBUG_ESP_PORT) && !defined(DEBUG_ESP_PORT_PRINTF)
@@ -48,7 +48,7 @@
 #endif
 
 #if defined(DEBUG_ESP_PORT) && !defined(DEBUG_GENERIC)
-  #define DEBUG_GENERIC( module, format, ... ) \
+#define DEBUG_GENERIC( module, format, ... ) \
     do { \
       struct _DEBUG_TIME_STAMP st = debugTimeStamp(); \
       DEBUG_ESP_PORT_PRINTF( (DEBUG_TIME_STAMP_FMT module " " format), st.whole, st.dec, ##__VA_ARGS__ ); \
@@ -56,7 +56,7 @@
 #endif
 
 #if defined(DEBUG_ESP_PORT) && !defined(DEBUG_GENERIC_F)
-  #define DEBUG_GENERIC_F( module, format, ... ) \
+#define DEBUG_GENERIC_F( module, format, ... ) \
     do { \
       struct _DEBUG_TIME_STAMP st = debugTimeStamp(); \
       DEBUG_ESP_PORT_PRINTF_F( (DEBUG_TIME_STAMP_FMT module " " format), st.whole, st.dec, ##__VA_ARGS__ ); \

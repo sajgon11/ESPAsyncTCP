@@ -37,7 +37,7 @@
 
 #include "ESPAsyncTCP.h"
 
-typedef enum 
+typedef enum
 {
   ATB_RX_MODE_NONE,
   ATB_RX_MODE_FREE,
@@ -46,7 +46,7 @@ typedef enum
   ATB_RX_MODE_TERMINATOR_STRING
 } atbRxMode_t;
 
-class AsyncTCPbuffer: public Print 
+class AsyncTCPbuffer: public Print
 {
   public:
 
@@ -93,7 +93,7 @@ class AsyncTCPbuffer: public Print
     void close();
 
   protected:
-  
+
     AsyncClient* _client;
     cbuf * _TXbufferRead;
     cbuf * _TXbufferWrite;
