@@ -675,7 +675,10 @@ void AsyncClient::_close()
     _pcb = NULL;
 
     if (_discard_cb)
+    {
       _discard_cb(_discard_cb_arg, this);
+    }
+    _tx_unacked_len = 0;
   }
 
   return;
@@ -701,6 +704,8 @@ void AsyncClient::_error(err_t err)
     // made to set to NULL other callbacks.
     _pcb = NULL;
   }
+
+  _tx_unacked_len = 0;
 
   if (_error_cb)
     _error_cb(_error_cb_arg, this, err);
