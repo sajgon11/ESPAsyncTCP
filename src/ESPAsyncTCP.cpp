@@ -520,6 +520,7 @@ size_t AsyncClient::add(const char* data, size_t size, uint8_t apiflags)
   }
 
   _tx_unsent_len += will_send;
+  _tx_unacked_len += will_send;
 
   return will_send;
 }
@@ -539,7 +540,6 @@ bool AsyncClient::send()
   {
     _pcb_busy = true;
     _pcb_sent_at = millis();
-    _tx_unacked_len += _tx_unsent_len;
     _tx_unsent_len = 0;
 
     return true;
