@@ -595,6 +595,8 @@ size_t AsyncTCPbuffer::_handleRxBuffer(uint8_t *buf, size_t len)
       _RXbuffer->peek((char *) b, BufferAvailable);
       r = _cbRX(b, BufferAvailable);
       _RXbuffer->remove(r);
+
+      delete[] b;
     }
 
     if (r == BufferAvailable && buf && (len > 0))
